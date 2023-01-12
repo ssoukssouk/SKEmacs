@@ -1,0 +1,11 @@
+auto-save-list/
+elpa/
+bookmarks
+settings.el
+*~*
+*.ttf
+tasks.org
+README*
+network-security.data
+recentf
+transient/
