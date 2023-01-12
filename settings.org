@@ -454,3 +454,4 @@ je pense que c’est pas utile car inclus dans Ivy
 * TODO
 ;comportement de undo redo (je voudrais modif l’incrément)
 ;repo distant
+;paneau danger quand alarme à enlever

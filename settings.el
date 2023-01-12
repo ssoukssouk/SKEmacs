@@ -166,6 +166,7 @@
 "S" 'scroll-half-page-down
 "(" 'backward-sexp ;ca fonctionne pas
 ")" 'forward-sexp ;ca fonctionne
+"/" 'swiper-isearch ;on remplace la recherche par défaut
 )
 
 ;Org
