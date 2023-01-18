@@ -89,8 +89,7 @@
     :prefix "SPC")
 
   (my-leader-def
-    ;Plus utilisés: top level(sans intermédiaires)
-    ;"/" swiper TODO
+    ;Les plus utilisés: top level(sans intermédiaires)
     "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
     "SPC" '(avy-goto-char  :which-key "go to char")
     "q" '(save-buffers-kill-terminal :which-key "quit emacs")
@@ -149,8 +148,6 @@
     "hF" '(counsel-describe-face :which-key "des. face")
     "hk" '(describe-key :which-key "des. key")
 
-    "hed" '((lambda () (interactive) (jump-to-register 67)) :which-key "edit dotfile")
-
     ;; Subtree
     "S" '(nil :which-key "Subtree")
     "Sn" 'org-narrow-to-subtree
@@ -188,6 +185,9 @@
   "(" 'backward-sexp ;ca fonctionne pas
   ")" 'forward-sexp ;ca fonctionne
   "/" 'swiper-isearch ;on remplace la recherche par défaut
+  ;Neotree
+ ;"C" 'neotree-select-up-node
+ ;"H" 'neotree-select-down-node
   )
 
   ;Org
@@ -380,7 +380,6 @@ je pense que c’est pas utile car inclus dans Ivy
 
 #+BEGIN_SRC emacs-lisp
   (use-package dashboard
-    :ensure t
     :config
     (dashboard-setup-startup-hook)
     (setq dashboard-center-content t)
@@ -395,6 +394,23 @@ je pense que c’est pas utile car inclus dans Ivy
     (setq dashboard-startup-banner 3)
     (setq dashboard-set-init-info t)
     (setq dashboard-init-info "La patae ou quoi?!")
+  )
+#+END_SRC
+
+* NeoTree
+
+#+BEGIN_SRC emacs-lisp
+  (use-package neotree
+  )
+#+END_SRC
+
+* Ranger
+* Calc
+
+#+BEGIN_SRC emacs-lisp
+  (use-package calc
+    :config
+    (calc-algebraic-mode t)
   )
 #+END_SRC
 

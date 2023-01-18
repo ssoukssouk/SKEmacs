@@ -61,138 +61,139 @@
 
 (use-package general)
 
-;crée une leader key "SPC" global et override pour retirer le comportement normal de "SPC"
-(general-create-definer my-leader-def
-  :states '(motion visual normal)
-  :keymaps 'override
-  :prefix "SPC")
+ ;crée une leader key "SPC" global et override pour retirer le comportement normal de "SPC"
+ (general-create-definer my-leader-def
+   :states '(motion visual normal)
+   :keymaps 'override
+   :prefix "SPC")
 
-(my-leader-def
-  ;Plus utilisés: top level(sans intermédiaires)
-  ;"/" swiper TODO
-  "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
-  "SPC" '(avy-goto-char  :which-key "go to char")
-  "q" '(save-buffers-kill-terminal :which-key "quit emacs")
-  "s" '(save-buffer :which-key "save buffer")
-  "#" '(comment-or-uncomment-region :which-key "comment")
-  "l"  '(avy-goto-line :which-key "jump to line")
-  "e"  '(avy-goto-word-0 :which-key "jump to word")
-  "w"  '(sk/return-week-number :which-key "week n°")
-  "u" '(undo-tree-visualize :which-key "undo-tree")
-  "i" '(indent-pp-sexp :which-key "indent-sexp")
+ (my-leader-def
+   ;Les plus utilisés: top level(sans intermédiaires)
+   "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+   "SPC" '(avy-goto-char  :which-key "go to char")
+   "q" '(save-buffers-kill-terminal :which-key "quit emacs")
+   "s" '(save-buffer :which-key "save buffer")
+   "#" '(comment-or-uncomment-region :which-key "comment")
+   "l"  '(avy-goto-line :which-key "jump to line")
+   "e"  '(avy-goto-word-0 :which-key "jump to word")
+   "w"  '(sk/return-week-number :which-key "week n°")
+   "u" '(undo-tree-visualize :which-key "undo-tree")
+   "i" '(indent-pp-sexp :which-key "indent-sexp")
 
-  ;Windows
-  "é" '(nil :which-key "window")
-  "éN" '(make-frame :which-key "make frame")
-  "éd" '(evil-window-delete :which-key "delete window")
-  "é-" '(split-window-vertically :which-key "split below")
-  "é/" '(split-window-horizontally :which-key "split right")
-  "ér" '(evil-window-right :which-key "evil-window-right")
-  "éc" '(evil-window-left :which-key "evil-window-left")
-  "ét" '(evil-window-down :which-key "evil-window-down")
-  "és" '(evil-window-up :which-key "evil-window-up")
-  "éz" '(text-scale-adjust :which-key "text zoom")
-  "é TAB" '(evil-window-next :wich-key "next")
-  "éD"  '(delete-other-windows :which-key "delete other")
-  "és"  '(evil-window-vsplit :which-key "split")
+   ;Windows
+   "é" '(nil :which-key "window")
+   "éN" '(make-frame :which-key "make frame")
+   "éd" '(evil-window-delete :which-key "delete window")
+   "é-" '(split-window-vertically :which-key "split below")
+   "é/" '(split-window-horizontally :which-key "split right")
+   "ér" '(evil-window-right :which-key "evil-window-right")
+   "éc" '(evil-window-left :which-key "evil-window-left")
+   "ét" '(evil-window-down :which-key "evil-window-down")
+   "és" '(evil-window-up :which-key "evil-window-up")
+   "éz" '(text-scale-adjust :which-key "text zoom")
+   "é TAB" '(evil-window-next :wich-key "next")
+   "éD"  '(delete-other-windows :which-key "delete other")
+   "és"  '(evil-window-vsplit :which-key "split")
 
-  ;Buffer
-  "b" '(nil :which-key "buffers")
-  "bb" '(ivy-switch-buffer :which-key "switch")
-  "bd" '(kill-buffer :which-key "kill")
-  "bn" '(evil-buffer-new :which-key "new")
+   ;Buffer
+   "b" '(nil :which-key "buffers")
+   "bb" '(ivy-switch-buffer :which-key "switch")
+   "bd" '(kill-buffer :which-key "kill")
+   "bn" '(evil-buffer-new :which-key "new")
 
-  ;Files
-  "f" '(nil :which-key "files")
-  "ff" '(counsel-find-file :which-key "find")
-  "fb" '(counsel-bookmark :which-key "bookmark")
-  "fs" '(save-buffer :which-key "save");c’est juste le temps que je prenne l’habitude de l’autre
+   ;Files
+   "f" '(nil :which-key "files")
+   "ff" '(counsel-find-file :which-key "find")
+   "fb" '(counsel-bookmark :which-key "bookmark")
+   "fs" '(save-buffer :which-key "save");c’est juste le temps que je prenne l’habitude de l’autre
 
-  ;Toggle UI
-  "t" '(nil :which-key "toggle")
-  "th" '(sk-hydra-theme-switcher/body :which-key "themes") 
-  "tt" '(toggle-transparency :which-key "transparency") 
-  "tx" '(hydra-text-scale/body :which-key "text-size") 
-  "tv" '(visual-line-mode :which-key "visual line mode")
-  "tn" '(display-line-numbers-mode :which-key "display line numbers")
-  "tm" '(hide-mode-line-mode :which-key "hide modeline mode")
-  "tw" '(whitespace-mode :which-key "white space")
-  "tc" '(toggle-truncate-lines :which-key "truncate-lines")
+   ;Toggle UI
+   "t" '(nil :which-key "toggle")
+   "th" '(sk-hydra-theme-switcher/body :which-key "themes") 
+   "tt" '(toggle-transparency :which-key "transparency") 
+   "tx" '(hydra-text-scale/body :which-key "text-size") 
+   "tv" '(visual-line-mode :which-key "visual line mode")
+   "tn" '(display-line-numbers-mode :which-key "display line numbers")
+   "tm" '(hide-mode-line-mode :which-key "hide modeline mode")
+   "tw" '(whitespace-mode :which-key "white space")
+   "tc" '(toggle-truncate-lines :which-key "truncate-lines")
 
-  ;; Help/emacs
-  "h" '(nil :which-key "help/emacs")
+   ;; Help/emacs
+   "h" '(nil :which-key "help/emacs")
 
-  "hv" '(counsel-describe-variable :which-key "des. variable")
-  "hb" '(counsel-descbinds :which-key "des. bindings")
-  "hf" '(counsel-describe-function :which-key "des. func")
-  "hF" '(counsel-describe-face :which-key "des. face")
-  "hk" '(describe-key :which-key "des. key")
+   "hv" '(counsel-describe-variable :which-key "des. variable")
+   "hb" '(counsel-descbinds :which-key "des. bindings")
+   "hf" '(counsel-describe-function :which-key "des. func")
+   "hF" '(counsel-describe-face :which-key "des. face")
+   "hk" '(describe-key :which-key "des. key")
 
-  "hed" '((lambda () (interactive) (jump-to-register 67)) :which-key "edit dotfile")
+   ;; Subtree
+   "S" '(nil :which-key "Subtree")
+   "Sn" 'org-narrow-to-subtree
+   "Sw" 'widen
 
-  ;; Subtree
-  "S" '(nil :which-key "Subtree")
-  "Sn" 'org-narrow-to-subtree
-  "Sw" 'widen
-
-  ;; "Applications"
-  "a" '(nil :which-key "applications")
-  "ao" '(org-agenda :which-key "org-agenda")
-  "aC" '(calc :which-key "calc")
-  "ab" '(browse-url-chrome :which-key "chrome")
-  "ar" 'ranger
-  "ad" 'dired
-  )
+   ;; "Applications"
+   "a" '(nil :which-key "applications")
+   "ao" '(org-agenda :which-key "org-agenda")
+   "aC" '(calc :which-key "calc")
+   "ab" '(browse-url-chrome :which-key "chrome")
+   "ar" 'ranger
+   "ad" 'dired
+   )
 
 
-(general-define-key
-;je pensais que motion tout seul suffisait à transférer à normal visual et les autres, apparemment non
-;donc je les spécifie à la main
-:states '(motion normal)
-:keymaps 'override
+ (general-define-key
+ ;je pensais que motion tout seul suffisait à transférer à normal visual et les autres, apparemment non
+ ;donc je les spécifie à la main
+ :states '(motion normal)
+ :keymaps 'override
 
-"t" 'evil-next-visual-line
-"s" 'evil-previous-visual-line
-"c" 'backward-char
-"r" 'forward-char
-"h" 'evil-replace
-"b" 'backward-word
-"é" 'forward-to-word
-;pour l’instant je fais le redo comme ça
-"U" 'undo-fu-only-redo
-"u" 'undo-fu-only-undo
-"TAB" 'org-cycle
-"T" 'scroll-half-page-up
-"S" 'scroll-half-page-down
-"(" 'backward-sexp ;ca fonctionne pas
-")" 'forward-sexp ;ca fonctionne
-)
+ "t" 'evil-next-visual-line
+ "s" 'evil-previous-visual-line
+ "c" 'backward-char
+ "r" 'forward-char
+ "h" 'evil-replace
+ "b" 'backward-word
+ "é" 'forward-to-word
+ ;pour l’instant je fais le redo comme ça
+ "U" 'undo-fu-only-redo
+ "u" 'undo-fu-only-undo
+ "TAB" 'org-cycle
+ "T" 'scroll-half-page-up
+ "S" 'scroll-half-page-down
+ "(" 'backward-sexp ;ca fonctionne pas
+ ")" 'forward-sexp ;ca fonctionne
+ "/" 'swiper-isearch ;on remplace la recherche par défaut
+ ;Neotree
+;"C" 'neotree-select-up-node
+;"H" 'neotree-select-down-node
+ )
 
-;Org
-(general-define-key
-:states '(motion normal)
-:keymaps 'override
-:prefix ","
+ ;Org
+ (general-define-key
+ :states '(motion normal)
+ :keymaps 'override
+ :prefix ","
 
-"e" '(org-end-of-subtree :which-key "end-subtree")
-"h" '(outline-up-heading :which-key "prev-heading")
-"s" 'org-cycle
-;permet d’ouvrir un URL dans nav par défaut au clavier
-"c" 'org-open-at-point 
+ "e" '(org-end-of-subtree :which-key "end-subtree")
+ "h" '(outline-up-heading :which-key "prev-heading")
+ "s" 'org-cycle
+ ;permet d’ouvrir un URL dans nav par défaut au clavier
+ "c" 'org-open-at-point 
 
-"i" '(:ignore t :which-key "insert")
-"it" '(org-time-stamp :which-key "timestamp")
-"is" '(org-insert-heading-respect-content :which-key "heading")
-"il" '(org-insert-link :which-key "link")
+ "i" '(:ignore t :which-key "insert")
+ "it" '(org-time-stamp :which-key "timestamp")
+ "is" '(org-insert-heading-respect-content :which-key "heading")
+ "il" '(org-insert-link :which-key "link")
 
-"o" '(:ignore t :which-key "org")
-"oc" '(org-toggle-checkbox :which-key "check")
-"oa" '(org-agenda :which-key "agenda")
-"os" '(org-schedule :which-key "schedule")
-)
+ "o" '(:ignore t :which-key "org")
+ "oc" '(org-toggle-checkbox :which-key "check")
+ "oa" '(org-agenda :which-key "agenda")
+ "os" '(org-schedule :which-key "schedule")
+ )
 
-;Jump
-;résumé dans le top level
+ ;Jump
+ ;résumé dans le top level
 
 (use-package key-chord
 :init
@@ -298,7 +299,6 @@
 (use-package magit)
 
 (use-package dashboard
-  :ensure t
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-center-content t)
@@ -313,6 +313,14 @@
   (setq dashboard-startup-banner 3)
   (setq dashboard-set-init-info t)
   (setq dashboard-init-info "La patae ou quoi?!")
+)
+
+(use-package neotree
+)
+
+(use-package calc
+  :config
+  (calc-algebraic-mode t)
 )
 
 (use-package hydra
