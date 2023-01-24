@@ -216,7 +216,27 @@
   ;Jump
   ;résumé dans le top level
 
-
+  ;Caractères spéciaux en bépo (que en insert)
+  (general-define-key
+  :states '(insert)
+  :keymaps 'override
+  "M-b" "|"
+  "M-," "'"
+  "M-p" "&"
+  "M-P" "§"
+  "M-n" "~"
+  "M-e" "€"
+  "M-u" "ù"
+  "M-(" "["
+  "M-)" "]"
+  "M-y" "{"
+  "M-x" "}"
+  "M-à" "\\"
+  "M-«" "<"
+  "M-»" ">"
+  "M-=" "≠"
+  "M-+" "±"
+  )
 #+END_SRC
 
 * Key-chord
