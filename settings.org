@@ -217,6 +217,7 @@
   ;résumé dans le top level
 
   ;Caractères spéciaux en bépo (que en insert)
+  ;C’est pour le mac, sur PC aucun problème comme alt et alt gr
   (general-define-key
   :states '(insert)
   :keymaps 'override
@@ -238,7 +239,6 @@
   "M-+" "±"
   )
 #+END_SRC
-
 * Key-chord
 #+BEGIN_SRC emacs-lisp
   (use-package key-chord

@@ -195,6 +195,29 @@
 ;Jump
 ;résumé dans le top level
 
+;Caractères spéciaux en bépo (que en insert)
+;C’est pour le mac, sur PC aucun problème comme alt et alt gr
+(general-define-key
+:states '(insert)
+:keymaps 'override
+"M-b" "|"
+"M-," "'"
+"M-p" "&"
+"M-P" "§"
+"M-n" "~"
+"M-e" "€"
+"M-u" "ù"
+"M-(" "["
+"M-)" "]"
+"M-y" "{"
+"M-x" "}"
+"M-à" "\\"
+"M-«" "<"
+"M-»" ">"
+"M-=" "≠"
+"M-+" "±"
+)
+
 (use-package key-chord
 :init
 (key-chord-mode 1)
