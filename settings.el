@@ -63,13 +63,12 @@
 
 ;crée une leader key "SPC" global et override pour retirer le comportement normal de "SPC"
 (general-create-definer my-leader-def
-  :states '(motion visual normal)
+  :states '(motion visual normal emacs)
   :keymaps 'override
   :prefix "SPC")
 
 (my-leader-def
   ;Plus utilisés: top level(sans intermédiaires)
-  ;"/" swiper TODO
   "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
   "SPC" '(avy-goto-char  :which-key "go to char")
   "q" '(save-buffers-kill-terminal :which-key "quit emacs")
@@ -138,10 +137,16 @@
   ;; "Applications"
   "a" '(nil :which-key "applications")
   "ao" '(org-agenda :which-key "org-agenda")
-  "aC" '(calc :which-key "calc")
+  "ac" '(calc :which-key "calc")
   "ab" '(browse-url-chrome :which-key "chrome")
   "ar" 'ranger
   "ad" 'dired
+
+  ;; "Lorem ipsum"
+  "L" '(nil :which-key "lorem")
+  "Ll" '(lorem-ipsum-insert-sentences :which-key "phrase")
+  "Lp" '(lorem-ipsum-insert-paragraphs :which-key "§")
+  "L-" '(lorem-ipsum-insert-list :which-key "list")
   )
 
 
@@ -387,3 +392,6 @@ _q_ quit                 ^
 ("e" nil "finished" :exit t)
 )
 (fset 'yes-or-no-p  'y-or-n-p)
+
+(use-package lorem-ipsum
+:ensure t)

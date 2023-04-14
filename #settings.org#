@@ -79,17 +79,18 @@
 #+END_SRC
 
 * General
+
 #+BEGIN_SRC emacs-lisp
   (use-package general)
 
   ;crée une leader key "SPC" global et override pour retirer le comportement normal de "SPC"
   (general-create-definer my-leader-def
-    :states '(motion visual normal)
+    :states '(motion visual normal emacs)
     :keymaps 'override
     :prefix "SPC")
 
   (my-leader-def
-    ;Les plus utilisés: top level(sans intermédiaires)
+    ;Plus utilisés: top level(sans intermédiaires)
     "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
     "SPC" '(avy-goto-char  :which-key "go to char")
     "q" '(save-buffers-kill-terminal :which-key "quit emacs")
@@ -148,6 +149,8 @@
     "hF" '(counsel-describe-face :which-key "des. face")
     "hk" '(describe-key :which-key "des. key")
 
+    "hed" '((lambda () (interactive) (jump-to-register 67)) :which-key "edit dotfile")
+
     ;; Subtree
     "S" '(nil :which-key "Subtree")
     "Sn" 'org-narrow-to-subtree
@@ -156,10 +159,16 @@
     ;; "Applications"
     "a" '(nil :which-key "applications")
     "ao" '(org-agenda :which-key "org-agenda")
-    "aC" '(calc :which-key "calc")
+    "ac" '(calc :which-key "calc")
     "ab" '(browse-url-chrome :which-key "chrome")
     "ar" 'ranger
     "ad" 'dired
+
+    ;; "Lorem ipsum"
+    "l" '(nil :which-key "lorem")
+    "ll" '(lorem-ipsum-insert-sentences :which-key "phrase")
+    "lp" '(lorem-ipsum-insert-paragraphs :which-key "§")
+    "l-" '(lorem-ipsum-insert-list :which-key "list")
     )
 
 
@@ -185,9 +194,6 @@
   "(" 'backward-sexp ;ca fonctionne pas
   ")" 'forward-sexp ;ca fonctionne
   "/" 'swiper-isearch ;on remplace la recherche par défaut
-  ;Neotree
- ;"C" 'neotree-select-up-node
- ;"H" 'neotree-select-down-node
   )
 
   ;Org
@@ -216,7 +222,28 @@
   ;Jump
   ;résumé dans le top level
 
-
+  ;Caractères spéciaux en bépo (que en insert)
+  ;C’est pour le mac, sur PC aucun problème comme alt et alt gr
+  (general-define-key
+  :states '(insert)
+  :keymaps 'override
+  "M-b" "|"
+  "M-," "'"
+  "M-p" "&"
+  "M-P" "§"
+  "M-n" "~"
+  "M-e" "€"
+  "M-u" "ù"
+  "M-(" "["
+  "M-)" "]"
+  "M-y" "{"
+  "M-x" "}"
+  "M-à" "\\"
+  "M-«" "<"
+  "M-»" ">"
+  "M-=" "≠"
+  "M-+" "±"
+  )
 #+END_SRC
 
 * Key-chord
@@ -380,6 +407,7 @@ je pense que c’est pas utile car inclus dans Ivy
 
 #+BEGIN_SRC emacs-lisp
   (use-package dashboard
+    :ensure t
     :config
     (dashboard-setup-startup-hook)
     (setq dashboard-center-content t)
@@ -395,23 +423,6 @@ je pense que c’est pas utile car inclus dans Ivy
     (setq dashboard-set-init-info t)
     (setq dashboard-init-info "La patae ou quoi?!")
   )
-#+END_SRC
-
-* NeoTree
-
-#+BEGIN_SRC emacs-lisp
-  (use-package neotree
-  )
-#+END_SRC
-
-* Ranger
-* Calc
-
-#+BEGIN_SRC emacs-lisp
-  (use-package calc
-    :config
-  )
-  (defcalcmodevar calc-algebraic-mode t)
 #+END_SRC
 
 * Hydra
@@ -467,6 +478,16 @@ je pense que c’est pas utile car inclus dans Ivy
 
 #+END_SRC
 
+* Divers packages
+
+#+BEGIN_SRC emacs-lisp 
+(use-package lorem-ipsum
+:ensure t)
+#+END_SRC
+
 * TODO
 ;comportement de undo redo (je voudrais modif l’incrément)
 ;repo distant
+;panneau danger quand alarme à enlever
+;thèmes whites
+;taille de la fenêtre undo tree par défaut
