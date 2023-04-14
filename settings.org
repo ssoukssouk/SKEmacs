@@ -350,10 +350,8 @@ je pense que c’est pas utile car inclus dans Ivy
 * Beacon
 
 #+BEGIN_SRC emacs-lisp 
-  (use-package beacon
-    :config
-    (beacon-mode 1)
-   )
+  ;je teste un peu sans ce package
+  ;(use-package beacon)
 #+END_SRC
 
 * Transparency
@@ -435,8 +433,8 @@ je pense que c’est pas utile car inclus dans Ivy
        Dark                ^Light^
   ----------------------------------------------
   _1_ deep              _\"_ xcode 
-  _2_ dracula           _\«_ snazzy
-  _3_ ephemeral         _\»_ aurora
+  _2_ dracula           _\\«_ snazzy
+  _3_ ephemeral         _\\»_ aurora
   _4_ gruvbox           _(_ mono-dark    
   _5_ henna             _)_ ocean 
   _6_ horizon              ^

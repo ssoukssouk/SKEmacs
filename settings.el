@@ -290,10 +290,7 @@
 
 (use-package undo-fu)
 
-(use-package beacon
-  :config
-  (beacon-mode 1)
- )
+(use-package beacon)
 
 (defun toggle-transparency ()
   (interactive)
@@ -352,8 +349,8 @@
      Dark                ^Light^
 ----------------------------------------------
 _1_ deep              _\"_ xcode 
-_2_ dracula           _\«_ snazzy
-_3_ ephemeral         _\»_ aurora
+_2_ dracula           _\\«_ snazzy
+_3_ ephemeral         _\\»_ aurora
 _4_ gruvbox           _(_ mono-dark    
 _5_ henna             _)_ ocean 
 _6_ horizon              ^
