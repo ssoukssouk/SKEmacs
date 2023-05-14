@@ -79,6 +79,7 @@
   "w"  '(sk/return-week-number :which-key "week n°")
   "u" '(undo-tree-visualize :which-key "undo-tree")
   "i" '(indent-pp-sexp :which-key "indent-sexp")
+  "o" '(recenter-top-bottom :which-key "recenter")
 
   ;Windows
   "é" '(nil :which-key "window")
@@ -117,6 +118,7 @@
   "tm" '(hide-mode-line-mode :which-key "hide modeline mode")
   "tw" '(whitespace-mode :which-key "white space")
   "tc" '(toggle-truncate-lines :which-key "truncate-lines")
+  "ts" '(smooth-scrolling-mode :which-key "smooth scrolling")
 
   ;; Help/emacs
   "h" '(nil :which-key "help/emacs")
@@ -181,7 +183,9 @@
 :prefix ","
 
 "e" '(org-end-of-subtree :which-key "end-subtree")
-"h" '(outline-up-heading :which-key "prev-heading")
+; le h c’est pour le heading le H pour le parent
+"h" '(org-previous-visible-heading :which-key "prev-heading")
+"H" '(outline-up-heading :which-key "prev-heading")
 "s" 'org-cycle
 ;permet d’ouvrir un URL dans nav par défaut au clavier
 "c" 'org-open-at-point 
@@ -276,6 +280,7 @@
 (use-package gruvbox-theme)
 (use-package doom-themes)
 (use-package kaolin-themes)
+(use-package modus-themes)
 (use-package all-the-icons
   :if (display-graphic-p)
   )
@@ -290,7 +295,8 @@
 
 (use-package undo-fu)
 
-(use-package beacon)
+;je teste un peu sans ce package
+;(use-package beacon)
 
 (defun toggle-transparency ()
   (interactive)
@@ -349,11 +355,11 @@
      Dark                ^Light^
 ----------------------------------------------
 _1_ deep              _\"_ xcode 
-_2_ dracula           _\\«_ snazzy
-_3_ ephemeral         _\\»_ aurora
+_2_ dracula           _2_ snazzy
+_3_ ephemeral         _3_ aurora
 _4_ gruvbox           _(_ mono-dark    
 _5_ henna             _)_ ocean 
-_6_ horizon              ^
+_6_ horizon              ^ 
 _7_ material             ^
 _8_ molokai              ^
 _9_ peacock              ^
@@ -390,5 +396,8 @@ _q_ quit                 ^
 )
 (fset 'yes-or-no-p  'y-or-n-p)
 
+"
+c’est le package qui génère des mots aléatoirement.
+"
 (use-package lorem-ipsum
 :ensure t)
