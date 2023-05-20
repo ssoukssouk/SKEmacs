@@ -29,8 +29,7 @@
  (tool-bar-mode -1)          ; Disable the toolbar
  (tooltip-mode -1)           ; Disable tooltips
  (set-fringe-mode 10)        ; Give some breathing room
- (menu-bar-mode -1)          ; Désactive la barre de menu 
-
+ (menu-bar-mode -1)          ; Désactive la barre de menu
  (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
  (setq visible-bell 1);fait flasher l’écran au lie d’entendre la sonnette.
 
@@ -185,7 +184,7 @@
 "e" '(org-end-of-subtree :which-key "end-subtree")
 ; le h c’est pour le heading le H pour le parent
 "h" '(org-previous-visible-heading :which-key "prev-heading")
-"H" '(outline-up-heading :which-key "prev-heading")
+"H" '(outline-up-heading :which-key "up-heading")
 "s" 'org-cycle
 ;permet d’ouvrir un URL dans nav par défaut au clavier
 "c" 'org-open-at-point 
@@ -261,7 +260,7 @@
 ; je ne suis psa sûr que ce package serve à quelque chose
 (use-package smooth-scrolling
   :init
-  (smooth-scrolling-mode 1))
+  (smooth-scrolling-mode nil))
 
 ; ça c’est utile
 (setq redisplay-dont-pause t
@@ -304,11 +303,12 @@
     (set-frame-parameter
      nil 'alpha
      (if (eql (cond ((numberp alpha) alpha)
-                    ((numberp (cdr alpha)) (cdr alpha))
-                    ;; Also handle undocumented (<active> <inactive>) form.
-                    ((numberp (cadr alpha)) (cadr alpha)))
-              100)
-         '(85 . 50) '(100 . 100)))))
+		    ((numberp (cdr alpha)) (cdr alpha))
+		    ;; Also handle undocumented (<active> <inactive>) form.
+		    ((numberp (cadr alpha)) (cadr alpha)))
+	      100)
+	 '(85 . 50) '(100 . 100)))))
+(toggle-transparency)
 
 (use-package undo-tree
  :config
@@ -359,8 +359,8 @@ _2_ dracula           _2_ snazzy
 _3_ ephemeral         _3_ aurora
 _4_ gruvbox           _(_ mono-dark    
 _5_ henna             _)_ ocean 
-_6_ horizon              ^ 
-_7_ material             ^
+_6_ horizon           _@_ modus-vivendi  
+_7_ material          _+_ modus-operandi
 _8_ molokai              ^
 _9_ peacock              ^
 _0_ old-hope             ^
@@ -384,6 +384,8 @@ _q_ quit                 ^
   ("»" (load-theme 'kaolin-aurora t) "aurora")
   ("(" (load-theme 'kaolin-mono-dark t) "mono-dark")
   (")" (load-theme 'kaolin-ocean t) "ocean")
+  ("@" (load-theme 'modus-vivendi t) "modus-vivendi")
+  ("+" (load-theme 'modus-operandi t) "modus-operandi")
   ("q" nil)
   )
 

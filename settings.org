@@ -40,8 +40,7 @@
   (tool-bar-mode -1)          ; Disable the toolbar
   (tooltip-mode -1)           ; Disable tooltips
   (set-fringe-mode 10)        ; Give some breathing room
-  (menu-bar-mode -1)          ; Désactive la barre de menu 
-
+  (menu-bar-mode -1)          ; Désactive la barre de menu
   (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
   (setq visible-bell 1);fait flasher l’écran au lie d’entendre la sonnette.
 #+END_SRC
@@ -207,7 +206,7 @@
   "e" '(org-end-of-subtree :which-key "end-subtree")
   ; le h c’est pour le heading le H pour le parent
   "h" '(org-previous-visible-heading :which-key "prev-heading")
-  "H" '(outline-up-heading :which-key "prev-heading")
+  "H" '(outline-up-heading :which-key "up-heading")
   "s" 'org-cycle
   ;permet d’ouvrir un URL dans nav par défaut au clavier
   "c" 'org-open-at-point 
@@ -294,12 +293,13 @@ c’est le package qui permet de se déplacer dans le buffer en affichant des co
 #+END_SRC
 
 * Smooth scrolling
-
+;je me demande si c’est bien utile vu que j’utilise plus recenter.
+;du coup je le mets en nil pour le moment
 #+BEGIN_SRC emacs-lisp
   ; je ne suis psa sûr que ce package serve à quelque chose
   (use-package smooth-scrolling
     :init
-    (smooth-scrolling-mode 1))
+    (smooth-scrolling-mode nil))
 
   ; ça c’est utile
   (setq redisplay-dont-pause t
@@ -336,7 +336,7 @@ je pense que c’est pas utile car inclus dans Ivy
   (use-package all-the-icons
     :if (display-graphic-p)
     )
-  (load-theme 'doom-old-hope t)
+  (load-theme 'doom-horizon t)
   (use-package doom-modeline
     :ensure t
     :init (doom-modeline-mode 1)
@@ -362,17 +362,19 @@ je pense que c’est pas utile car inclus dans Ivy
 * Transparency
 
 #+BEGIN_SRC emacs-lisp 
- (defun toggle-transparency ()
-   (interactive)
-   (let ((alpha (frame-parameter nil 'alpha)))
-     (set-frame-parameter
-      nil 'alpha
-      (if (eql (cond ((numberp alpha) alpha)
-                     ((numberp (cdr alpha)) (cdr alpha))
-                     ;; Also handle undocumented (<active> <inactive>) form.
-                     ((numberp (cadr alpha)) (cadr alpha)))
-               100)
-          '(85 . 50) '(100 . 100)))))
+  (defun toggle-transparency ()
+    (interactive)
+    (let ((alpha (frame-parameter nil 'alpha)))
+      (set-frame-parameter
+       nil 'alpha
+       (if (eql (cond ((numberp alpha) alpha)
+		      ((numberp (cdr alpha)) (cdr alpha))
+		      ;; Also handle undocumented (<active> <inactive>) form.
+		      ((numberp (cadr alpha)) (cadr alpha)))
+		100)
+	   '(85 . 50) '(100 . 100)))))
+  ;je le fais une fois parce que sinon il faut le faire 2 fois la 1re fois
+  (toggle-transparency)
 #+END_SRC
 
 * Undo-tree
@@ -421,10 +423,10 @@ je pense que c’est pas utile car inclus dans Ivy
 			    (agenda . 5)
 			    )
 	  )
-    (setq dashboard-banner-logo-tile "Salut toi, tu veux voir ma config")
+    (setq dashboard-banner-logo-tile "Salut toi, tu veux voir ma config? ;)")
     (setq dashboard-startup-banner 3)
     (setq dashboard-set-init-info t)
-    (setq dashboard-init-info "La patae ou quoi?!")
+    (setq dashboard-init-info "La patate ou quoi?!")
   )
 #+END_SRC
 
@@ -497,4 +499,4 @@ c’est le package qui génère des mots aléatoirement.
 ;comportement de undo redo (je voudrais modif l’incrément)
 ;panneau danger quand alarme à enlever
 ;taille de la fenêtre undo tree par défaut
-;modifier le ,h et ,H (changer les raccourcis)
+;fontsize minibuffer (ce serait bien de pouvoir la changer)
