@@ -258,6 +258,7 @@
   )
   ; définition classique du raccourci qui exit insert (ou visual) state
   (key-chord-define-global "gq" 'evil-normal-state)
+  (key-chord-define-global "hh" 'outline-up-heading)
 
 #+END_SRC
 
@@ -500,3 +501,4 @@ c’est le package qui génère des mots aléatoirement.
 ;panneau danger quand alarme à enlever
 ;taille de la fenêtre undo tree par défaut
 ;fontsize minibuffer (ce serait bien de pouvoir la changer)
+;date et heure de la dernière sauvegarde

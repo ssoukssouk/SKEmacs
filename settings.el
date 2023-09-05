@@ -233,6 +233,7 @@
 )
 ; définition classique du raccourci qui exit insert (ou visual) state
 (key-chord-define-global "gq" 'evil-normal-state)
+(key-chord-define-global "hh" 'outline-up-heading)
 
 (use-package evil
   :init
@@ -283,7 +284,7 @@
 (use-package all-the-icons
   :if (display-graphic-p)
   )
-(load-theme 'doom-old-hope t)
+(load-theme 'doom-horizon t)
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
@@ -308,6 +309,7 @@
 		    ((numberp (cadr alpha)) (cadr alpha)))
 	      100)
 	 '(85 . 50) '(100 . 100)))))
+;je le fais une fois parce que sinon il faut le faire 2 fois la 1re fois
 (toggle-transparency)
 
 (use-package undo-tree
@@ -341,10 +343,10 @@
 			  (agenda . 5)
 			  )
 	)
-  (setq dashboard-banner-logo-tile "Salut toi, tu veux voir ma config")
+  (setq dashboard-banner-logo-tile "Salut toi, tu veux voir ma config? ;)")
   (setq dashboard-startup-banner 3)
   (setq dashboard-set-init-info t)
-  (setq dashboard-init-info "La patae ou quoi?!")
+  (setq dashboard-init-info "La patate ou quoi?!")
 )
 
 (use-package hydra
