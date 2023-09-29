@@ -52,11 +52,35 @@
 (use-package which-key
   :init
   (which-key-mode)
-  (setq which-key-idle-delay 0);définit le tps d’attente avant que which se lance
+  (setq which-key-idle-delay 0.3);définit le tps d’attente avant que which se lance
   (setq which-key-sort-order 'which-key-key-order-alpha
 	which-key-min-display-lines 6
 	which-key-max-display-columns 4)
   )
+
+(general-define-key
+;je pensais que motion tout seul suffisait à transférer à normal visual et les autres, apparemment non
+;donc je les spécifie à la main
+:states '(motion normal treemacs)
+:keymaps 'override
+
+"t" 'evil-next-visual-line
+"s" 'evil-previous-visual-line
+"c" 'backward-char
+"r" 'forward-char
+"h" 'evil-replace
+"b" 'backward-word
+"é" 'forward-to-word
+;pour l’instant je fais le redo comme ça
+"U" 'undo-fu-only-redo
+"u" 'undo-fu-only-undo
+"TAB" 'org-cycle
+"T" 'scroll-half-page-up
+"S" 'scroll-half-page-down
+"(" 'backward-sexp ;ca fonctionne pas
+")" 'forward-sexp ;ca fonctionne
+"/" 'swiper-isearch ;on remplace la recherche par défaut
+)
 
 (use-package general)
 
@@ -79,7 +103,10 @@
   "u" '(undo-tree-visualize :which-key "undo-tree")
   "i" '(indent-pp-sexp :which-key "indent-sexp")
   "o" '(recenter-top-bottom :which-key "recenter")
+  "x" '(eval-last-sexp :which-key "eval")
+  )
 
+(my-leader-def
   ;Windows
   "é" '(nil :which-key "window")
   "éN" '(make-frame :which-key "make frame")
@@ -94,91 +121,114 @@
   "é TAB" '(evil-window-next :wich-key "next")
   "éD"  '(delete-other-windows :which-key "delete other")
   "és"  '(evil-window-vsplit :which-key "split")
+  )
 
+(my-leader-def
   ;Buffer
   "b" '(nil :which-key "buffers")
   "bb" '(ivy-switch-buffer :which-key "switch")
   "bd" '(kill-buffer :which-key "kill")
   "bn" '(evil-buffer-new :which-key "new")
+  )
 
-  ;Files
+(my-leader-def
   "f" '(nil :which-key "files")
   "ff" '(counsel-find-file :which-key "find")
   "fb" '(counsel-bookmark :which-key "bookmark")
   "fs" '(save-buffer :which-key "save");c’est juste le temps que je prenne l’habitude de l’autre
+  )
 
-  ;Toggle UI
+(my-leader-def
   "t" '(nil :which-key "toggle")
   "th" '(sk-hydra-theme-switcher/body :which-key "themes") 
   "tt" '(toggle-transparency :which-key "transparency") 
   "tx" '(hydra-text-scale/body :which-key "text-size") 
   "tv" '(visual-line-mode :which-key "visual line mode")
   "tn" '(display-line-numbers-mode :which-key "display line numbers")
-  "tm" '(hide-mode-line-mode :which-key "hide modeline mode")
+  "tm" '(minimap-mode :which-key "minimap")
   "tw" '(whitespace-mode :which-key "white space")
   "tc" '(toggle-truncate-lines :which-key "truncate-lines")
   "ts" '(smooth-scrolling-mode :which-key "smooth scrolling")
+  "tr" '(treemacs :which-key "treemacs")
+  )
 
-  ;; Help/emacs
+(my-leader-def
+  ;Treemacs
+  "r" '(nil :which-key "treemacs")
+  "rr" '(treemacs :which-key "treemacs")
+  "r?" '(treemacs-helpful-hydra :which-key "help")
+  "re" '(treemacs-visit-node-in-external-application :which-key "ouvrir ext")
+  "rd" '(treemacs-toggle-show-dotfiles :which-key "dotfiles")
+  "ry" '(treemacs-copy-absolute-path-at-point :which-key "copy chemin")
+  )
+
+(general-define-key
+:states '(motion visual normal emacs)
+:keymaps 'treemacs-mode-map
+
+"?" 'treemacs-helpful-hydra
+"R" 'treemacs-visit-node-in-external-application
+"C" 'treemacs-root-up
+)
+
+(my-leader-def
+  ;Treemacs
+  "g" '(nil :which-key "magit")
+  "gg" '(magit-status :which-key "status")
+  )
+
+(general-define-key
+:keymaps '2048-mode-map
+
+"c" '2048-left
+"t" '2048-down
+"s" '2048-up
+"r" '2048-right
+)
+
+(my-leader-def
   "h" '(nil :which-key "help/emacs")
-
   "hv" '(counsel-describe-variable :which-key "des. variable")
   "hb" '(counsel-descbinds :which-key "des. bindings")
   "hf" '(counsel-describe-function :which-key "des. func")
   "hF" '(counsel-describe-face :which-key "des. face")
   "hk" '(describe-key :which-key "des. key")
+  "hd" '((lambda () (interactive) (jump-to-register 67)) :which-key "edit dotfile")
+  )
 
-  "hed" '((lambda () (interactive) (jump-to-register 67)) :which-key "edit dotfile")
-
-  ;; Subtree
+(my-leader-def
   "S" '(nil :which-key "Subtree")
   "Sn" 'org-narrow-to-subtree
   "Sw" 'widen
+  )
 
-  ;; "Applications"
+(my-leader-def
   "a" '(nil :which-key "applications")
   "ao" '(org-agenda :which-key "org-agenda")
   "ac" '(calc :which-key "calc")
   "ab" '(browse-url-chrome :which-key "chrome")
   "ar" 'ranger
   "ad" 'dired
+  )
 
-  ;; "Lorem ipsum"
+(my-leader-def
   "L" '(nil :which-key "lorem")
   "Ll" '(lorem-ipsum-insert-sentences :which-key "phrase")
   "Lp" '(lorem-ipsum-insert-paragraphs :which-key "§")
   "L-" '(lorem-ipsum-insert-list :which-key "list")
   )
 
+(my-leader-def
+  "M" '(nil :which-key "multiple cursors")
+  "Mv" '(evil-mc-make-cursor-in-visual-selection-beg :which-key "mc in visual line")
+  "Mu" '(evil-mc-undo-all-cursors :which-key "undo all")
+  "Mp" '(evil-mc-pause-cursors :which-key "pause")
+  "Mc" '(evil-mc-make-all-cursors :which-key "make all")
+  )
 
 (general-define-key
-;je pensais que motion tout seul suffisait à transférer à normal visual et les autres, apparemment non
-;donc je les spécifie à la main
 :states '(motion normal)
-:keymaps 'override
-
-"t" 'evil-next-visual-line
-"s" 'evil-previous-visual-line
-"c" 'backward-char
-"r" 'forward-char
-"h" 'evil-replace
-"b" 'backward-word
-"é" 'forward-to-word
-;pour l’instant je fais le redo comme ça
-"U" 'undo-fu-only-redo
-"u" 'undo-fu-only-undo
-"TAB" 'org-cycle
-"T" 'scroll-half-page-up
-"S" 'scroll-half-page-down
-"(" 'backward-sexp ;ca fonctionne pas
-")" 'forward-sexp ;ca fonctionne
-"/" 'swiper-isearch ;on remplace la recherche par défaut
-)
-
-;Org
-(general-define-key
-:states '(motion normal)
-:keymaps 'override
+:keymaps 'org-mode-map
 :prefix ","
 
 "e" '(org-end-of-subtree :which-key "end-subtree")
@@ -199,9 +249,6 @@
 "oa" '(org-agenda :which-key "agenda")
 "os" '(org-schedule :which-key "schedule")
 )
-
-;Jump
-;résumé dans le top level
 
 ;Caractères spéciaux en bépo (que en insert)
 ;C’est pour le mac, sur PC aucun problème comme alt et alt gr
@@ -234,6 +281,8 @@
 ; définition classique du raccourci qui exit insert (ou visual) state
 (key-chord-define-global "gq" 'evil-normal-state)
 (key-chord-define-global "hh" 'outline-up-heading)
+;ca bug sur le mac treemacs-mode-map et je comprends pas pourquoi
+;(key-chord-define treemacs-mode-map "hh" 'treemacs-goto-parent-node)
 
 (use-package evil
   :init
@@ -252,12 +301,15 @@
   (setq evil-replace-state-cursor  '("#eb998b" hbar))
   (setq evil-motion-state-cursor   '("#ad8beb" box))
 
+;c’est le package qui permet de se déplacer dans le buffer en affichant des combinaisons de lettres
 (use-package avy
 :init
 ;home row letters only (bépo layout)
 (setq avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n))
 )
 
+;je me demande si c’est bien utile vu que j’utilise plus recenter.
+;du coup je le mets en nil pour le moment
 ; je ne suis psa sûr que ce package serve à quelque chose
 (use-package smooth-scrolling
   :init
@@ -275,6 +327,7 @@
   (ivy-mode)
   )
 
+;je pense que c’est pas utile car inclus dans Ivy
 (use-package counsel)
 
 (use-package gruvbox-theme)
@@ -349,6 +402,19 @@
   (setq dashboard-init-info "La patate ou quoi?!")
 )
 
+(use-package treemacs
+:ensure t)
+
+(treemacs-follow-mode 0)
+
+(use-package evil-mc 
+:ensure   t)
+(evil-mc-mode 1)
+
+;c’est le package qui génère des mots aléatoirement.
+(use-package lorem-ipsum
+:ensure t)
+
 (use-package hydra
   :defer t)
 
@@ -386,8 +452,8 @@ _q_ quit                 ^
   ("»" (load-theme 'kaolin-aurora t) "aurora")
   ("(" (load-theme 'kaolin-mono-dark t) "mono-dark")
   (")" (load-theme 'kaolin-ocean t) "ocean")
-  ("@" (load-theme 'modus-vivendi t) "modus-vivendi")
-  ("+" (load-theme 'modus-operandi t) "modus-operandi")
+  ("@" (load-theme 'modus-vivendi t) "modus-vivendi" :color blue)
+  ("+" (load-theme 'modus-operandi t) "modus-operandi" :color blue)
   ("q" nil)
   )
 
@@ -400,8 +466,15 @@ _q_ quit                 ^
 )
 (fset 'yes-or-no-p  'y-or-n-p)
 
-"
-c’est le package qui génère des mots aléatoirement.
-"
-(use-package lorem-ipsum
+(use-package 2048-game
 :ensure t)
+
+;comportement de undo redo (je voudrais modif l’incrément)
+;panneau danger quand alarme à enlever
+;taille de la fenêtre undo tree par défaut
+;fontsize minibuffer (ce serait bien de pouvoir la changer)
+;date et heure de la dernière sauvegarde
+;faire fonctionner minimap (c’est pas super utile mais c’est rigolo)
+;apprendre magit et l’implémenter
+;importer les diffs avec les settings du boulot
+;racourcis 2048

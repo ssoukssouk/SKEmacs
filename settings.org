@@ -4,6 +4,7 @@
 #+STARTUP: fold
 
 * Use package
+
 #+BEGIN_SRC emacs-lisp
   (require 'package)
 
@@ -46,6 +47,7 @@
 #+END_SRC
 
 * Org
+
 #+BEGIN_SRC emacs-lisp
   (use-package org)
 
@@ -65,11 +67,12 @@
 #+END_SRC
 
 * Which-Key
+
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :init
     (which-key-mode)
-    (setq which-key-idle-delay 0);définit le tps d’attente avant que which se lance
+    (setq which-key-idle-delay 0.3);définit le tps d’attente avant que which se lance
     (setq which-key-sort-order 'which-key-key-order-alpha
 	  which-key-min-display-lines 6
 	  which-key-max-display-columns 4)
@@ -78,105 +81,13 @@
 #+END_SRC
 
 * General
+** Motion généraux
 
 #+BEGIN_SRC emacs-lisp
-  (use-package general)
-
-  ;crée une leader key "SPC" global et override pour retirer le comportement normal de "SPC"
-  (general-create-definer my-leader-def
-    :states '(motion visual normal emacs)
-    :keymaps 'override
-    :prefix "SPC")
-
-  (my-leader-def
-    ;Plus utilisés: top level(sans intermédiaires)
-    "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
-    "SPC" '(avy-goto-char  :which-key "go to char")
-    "q" '(save-buffers-kill-terminal :which-key "quit emacs")
-    "s" '(save-buffer :which-key "save buffer")
-    "#" '(comment-or-uncomment-region :which-key "comment")
-    "l"  '(avy-goto-line :which-key "jump to line")
-    "e"  '(avy-goto-word-0 :which-key "jump to word")
-    "w"  '(sk/return-week-number :which-key "week n°")
-    "u" '(undo-tree-visualize :which-key "undo-tree")
-    "i" '(indent-pp-sexp :which-key "indent-sexp")
-    "o" '(recenter-top-bottom :which-key "recenter")
-
-    ;Windows
-    "é" '(nil :which-key "window")
-    "éN" '(make-frame :which-key "make frame")
-    "éd" '(evil-window-delete :which-key "delete window")
-    "é-" '(split-window-vertically :which-key "split below")
-    "é/" '(split-window-horizontally :which-key "split right")
-    "ér" '(evil-window-right :which-key "evil-window-right")
-    "éc" '(evil-window-left :which-key "evil-window-left")
-    "ét" '(evil-window-down :which-key "evil-window-down")
-    "és" '(evil-window-up :which-key "evil-window-up")
-    "éz" '(text-scale-adjust :which-key "text zoom")
-    "é TAB" '(evil-window-next :wich-key "next")
-    "éD"  '(delete-other-windows :which-key "delete other")
-    "és"  '(evil-window-vsplit :which-key "split")
-
-    ;Buffer
-    "b" '(nil :which-key "buffers")
-    "bb" '(ivy-switch-buffer :which-key "switch")
-    "bd" '(kill-buffer :which-key "kill")
-    "bn" '(evil-buffer-new :which-key "new")
-
-    ;Files
-    "f" '(nil :which-key "files")
-    "ff" '(counsel-find-file :which-key "find")
-    "fb" '(counsel-bookmark :which-key "bookmark")
-    "fs" '(save-buffer :which-key "save");c’est juste le temps que je prenne l’habitude de l’autre
-
-    ;Toggle UI
-    "t" '(nil :which-key "toggle")
-    "th" '(sk-hydra-theme-switcher/body :which-key "themes") 
-    "tt" '(toggle-transparency :which-key "transparency") 
-    "tx" '(hydra-text-scale/body :which-key "text-size") 
-    "tv" '(visual-line-mode :which-key "visual line mode")
-    "tn" '(display-line-numbers-mode :which-key "display line numbers")
-    "tm" '(hide-mode-line-mode :which-key "hide modeline mode")
-    "tw" '(whitespace-mode :which-key "white space")
-    "tc" '(toggle-truncate-lines :which-key "truncate-lines")
-    "ts" '(smooth-scrolling-mode :which-key "smooth scrolling")
-
-    ;; Help/emacs
-    "h" '(nil :which-key "help/emacs")
-
-    "hv" '(counsel-describe-variable :which-key "des. variable")
-    "hb" '(counsel-descbinds :which-key "des. bindings")
-    "hf" '(counsel-describe-function :which-key "des. func")
-    "hF" '(counsel-describe-face :which-key "des. face")
-    "hk" '(describe-key :which-key "des. key")
-
-    "hed" '((lambda () (interactive) (jump-to-register 67)) :which-key "edit dotfile")
-
-    ;; Subtree
-    "S" '(nil :which-key "Subtree")
-    "Sn" 'org-narrow-to-subtree
-    "Sw" 'widen
-
-    ;; "Applications"
-    "a" '(nil :which-key "applications")
-    "ao" '(org-agenda :which-key "org-agenda")
-    "ac" '(calc :which-key "calc")
-    "ab" '(browse-url-chrome :which-key "chrome")
-    "ar" 'ranger
-    "ad" 'dired
-
-    ;; "Lorem ipsum"
-    "L" '(nil :which-key "lorem")
-    "Ll" '(lorem-ipsum-insert-sentences :which-key "phrase")
-    "Lp" '(lorem-ipsum-insert-paragraphs :which-key "§")
-    "L-" '(lorem-ipsum-insert-list :which-key "list")
-    )
-
-
   (general-define-key
   ;je pensais que motion tout seul suffisait à transférer à normal visual et les autres, apparemment non
   ;donc je les spécifie à la main
-  :states '(motion normal)
+  :states '(motion normal treemacs)
   :keymaps 'override
 
   "t" 'evil-next-visual-line
@@ -196,11 +107,216 @@
   ")" 'forward-sexp ;ca fonctionne
   "/" 'swiper-isearch ;on remplace la recherche par défaut
   )
+#+END_SRC
 
-  ;Org
+** Définition leader
+
+#+BEGIN_SRC emacs-lisp
+  (use-package general)
+
+  ;crée une leader key "SPC" global et override pour retirer le comportement normal de "SPC"
+  (general-create-definer my-leader-def
+    :states '(motion visual normal emacs)
+    :keymaps 'override
+    :prefix "SPC")
+
+#+END_SRC
+
+** Top level
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    ;Plus utilisés: top level(sans intermédiaires)
+    "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+    "SPC" '(avy-goto-char  :which-key "go to char")
+    "q" '(save-buffers-kill-terminal :which-key "quit emacs")
+    "s" '(save-buffer :which-key "save buffer")
+    "#" '(comment-or-uncomment-region :which-key "comment")
+    "l"  '(avy-goto-line :which-key "jump to line")
+    "e"  '(avy-goto-word-0 :which-key "jump to word")
+    "w"  '(sk/return-week-number :which-key "week n°")
+    "u" '(undo-tree-visualize :which-key "undo-tree")
+    "i" '(indent-pp-sexp :which-key "indent-sexp")
+    "o" '(recenter-top-bottom :which-key "recenter")
+    "x" '(eval-last-sexp :which-key "eval")
+    )
+#+END_SRC
+
+** Fenêtres
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    ;Windows
+    "é" '(nil :which-key "window")
+    "éN" '(make-frame :which-key "make frame")
+    "éd" '(evil-window-delete :which-key "delete window")
+    "é-" '(split-window-vertically :which-key "split below")
+    "é/" '(split-window-horizontally :which-key "split right")
+    "ér" '(evil-window-right :which-key "evil-window-right")
+    "éc" '(evil-window-left :which-key "evil-window-left")
+    "ét" '(evil-window-down :which-key "evil-window-down")
+    "és" '(evil-window-up :which-key "evil-window-up")
+    "éz" '(text-scale-adjust :which-key "text zoom")
+    "é TAB" '(evil-window-next :wich-key "next")
+    "éD"  '(delete-other-windows :which-key "delete other")
+    "és"  '(evil-window-vsplit :which-key "split")
+    )
+#+END_SRC
+
+** Buffer
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    ;Buffer
+    "b" '(nil :which-key "buffers")
+    "bb" '(ivy-switch-buffer :which-key "switch")
+    "bd" '(kill-buffer :which-key "kill")
+    "bn" '(evil-buffer-new :which-key "new")
+    )
+#+END_SRC
+
+** Files
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    "f" '(nil :which-key "files")
+    "ff" '(counsel-find-file :which-key "find")
+    "fb" '(counsel-bookmark :which-key "bookmark")
+    "fs" '(save-buffer :which-key "save");c’est juste le temps que je prenne l’habitude de l’autre
+    )
+#+END_SRC
+
+** Toggle
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    "t" '(nil :which-key "toggle")
+    "th" '(sk-hydra-theme-switcher/body :which-key "themes") 
+    "tt" '(toggle-transparency :which-key "transparency") 
+    "tx" '(hydra-text-scale/body :which-key "text-size") 
+    "tv" '(visual-line-mode :which-key "visual line mode")
+    "tn" '(display-line-numbers-mode :which-key "display line numbers")
+    "tm" '(minimap-mode :which-key "minimap")
+    "tw" '(whitespace-mode :which-key "white space")
+    "tc" '(toggle-truncate-lines :which-key "truncate-lines")
+    "ts" '(smooth-scrolling-mode :which-key "smooth scrolling")
+    "tr" '(treemacs :which-key "treemacs")
+    )
+#+END_SRC
+
+** Treemacs
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    ;Treemacs
+    "r" '(nil :which-key "treemacs")
+    "rr" '(treemacs :which-key "treemacs")
+    "r?" '(treemacs-helpful-hydra :which-key "help")
+    "re" '(treemacs-visit-node-in-external-application :which-key "ouvrir ext")
+    "rd" '(treemacs-toggle-show-dotfiles :which-key "dotfiles")
+    "ry" '(treemacs-copy-absolute-path-at-point :which-key "copy chemin")
+    )
+
+  (general-define-key
+  :states '(motion visual normal emacs)
+  :keymaps 'treemacs-mode-map
+
+  "?" 'treemacs-helpful-hydra
+  "R" 'treemacs-visit-node-in-external-application
+  "C" 'treemacs-root-up
+  )
+#+END_SRC
+
+** Magit
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    ;Treemacs
+    "g" '(nil :which-key "magit")
+    "gg" '(magit-status :which-key "status")
+    )
+#+END_SRC
+
+** 2048
+
+#+BEGIN_SRC emacs-lisp
+
+  (general-define-key
+  :keymaps '2048-mode-map
+
+  "c" '2048-left
+  "t" '2048-down
+  "s" '2048-up
+  "r" '2048-right
+  )
+#+END_SRC
+
+** Help
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    "h" '(nil :which-key "help/emacs")
+    "hv" '(counsel-describe-variable :which-key "des. variable")
+    "hb" '(counsel-descbinds :which-key "des. bindings")
+    "hf" '(counsel-describe-function :which-key "des. func")
+    "hF" '(counsel-describe-face :which-key "des. face")
+    "hk" '(describe-key :which-key "des. key")
+    "hd" '((lambda () (interactive) (jump-to-register 67)) :which-key "edit dotfile")
+    )
+#+END_SRC
+
+** Subtree
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    "S" '(nil :which-key "Subtree")
+    "Sn" 'org-narrow-to-subtree
+    "Sw" 'widen
+    )
+#+END_SRC
+
+** Applications
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    "a" '(nil :which-key "applications")
+    "ao" '(org-agenda :which-key "org-agenda")
+    "ac" '(calc :which-key "calc")
+    "ab" '(browse-url-chrome :which-key "chrome")
+    "ar" 'ranger
+    "ad" 'dired
+    )
+#+END_SRC
+
+** Lorem ipsum
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    "L" '(nil :which-key "lorem")
+    "Ll" '(lorem-ipsum-insert-sentences :which-key "phrase")
+    "Lp" '(lorem-ipsum-insert-paragraphs :which-key "§")
+    "L-" '(lorem-ipsum-insert-list :which-key "list")
+    )
+#+END_SRC
+
+** Multiple cursors
+
+#+BEGIN_SRC emacs-lisp
+  (my-leader-def
+    "M" '(nil :which-key "multiple cursors")
+    "Mv" '(evil-mc-make-cursor-in-visual-selection-beg :which-key "mc in visual line")
+    "Mu" '(evil-mc-undo-all-cursors :which-key "undo all")
+    "Mp" '(evil-mc-pause-cursors :which-key "pause")
+    "Mc" '(evil-mc-make-all-cursors :which-key "make all")
+    )
+#+END_SRC
+
+** Org
+
+#+BEGIN_SRC emacs-lisp
   (general-define-key
   :states '(motion normal)
-  :keymaps 'override
+  :keymaps 'org-mode-map
   :prefix ","
 
   "e" '(org-end-of-subtree :which-key "end-subtree")
@@ -221,10 +337,11 @@
   "oa" '(org-agenda :which-key "agenda")
   "os" '(org-schedule :which-key "schedule")
   )
+#+END_SRC
 
-  ;Jump
-  ;résumé dans le top level
+** Caractères spéciaux (Mac)
 
+#+BEGIN_SRC emacs-lisp
   ;Caractères spéciaux en bépo (que en insert)
   ;C’est pour le mac, sur PC aucun problème comme alt et alt gr
   (general-define-key
@@ -250,6 +367,7 @@
 #+END_SRC
 
 * Key-chord
+
 #+BEGIN_SRC emacs-lisp
   (use-package key-chord
   :init
@@ -259,10 +377,13 @@
   ; définition classique du raccourci qui exit insert (ou visual) state
   (key-chord-define-global "gq" 'evil-normal-state)
   (key-chord-define-global "hh" 'outline-up-heading)
+  ;ca bug sur le mac treemacs-mode-map et je comprends pas pourquoi
+  ;(key-chord-define treemacs-mode-map "hh" 'treemacs-goto-parent-node)
 
 #+END_SRC
 
 * Evil
+
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :init
@@ -283,8 +404,8 @@
 #+END_SRC
 
 * Avy
-c’est le package qui permet de se déplacer dans le buffer en affichant des combinaisons de lettres
 #+BEGIN_SRC emacs-lisp
+  ;c’est le package qui permet de se déplacer dans le buffer en affichant des combinaisons de lettres
   (use-package avy
   :init
   ;home row letters only (bépo layout)
@@ -294,9 +415,10 @@ c’est le package qui permet de se déplacer dans le buffer en affichant des co
 #+END_SRC
 
 * Smooth scrolling
-;je me demande si c’est bien utile vu que j’utilise plus recenter.
-;du coup je le mets en nil pour le moment
+
 #+BEGIN_SRC emacs-lisp
+  ;je me demande si c’est bien utile vu que j’utilise plus recenter.
+  ;du coup je le mets en nil pour le moment
   ; je ne suis psa sûr que ce package serve à quelque chose
   (use-package smooth-scrolling
     :init
@@ -321,8 +443,9 @@ c’est le package qui permet de se déplacer dans le buffer en affichant des co
 #+END_SRC
 
 * Counsel
-je pense que c’est pas utile car inclus dans Ivy
+
 #+BEGIN_SRC emacs-lisp
+  ;je pense que c’est pas utile car inclus dans Ivy
   (use-package counsel)
 
 #+END_SRC
@@ -431,7 +554,33 @@ je pense que c’est pas utile car inclus dans Ivy
   )
 #+END_SRC
 
+* Treemacs
+
+#+BEGIN_SRC emacs-lisp
+  (use-package treemacs
+  :ensure t)
+
+  (treemacs-follow-mode 0)
+#+END_SRC
+
+* Multi cursors
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-mc 
+  :ensure   t)
+  (evil-mc-mode 1)
+#+END_SRC
+
+* Lorem Ipsum
+
+#+BEGIN_SRC emacs-lisp
+  ;c’est le package qui génère des mots aléatoirement.
+  (use-package lorem-ipsum
+  :ensure t)
+#+END_SRC
+
 * Hydra
+
 #+BEGIN_SRC emacs-lisp 
   (use-package hydra
     :defer t)
@@ -470,8 +619,8 @@ je pense que c’est pas utile car inclus dans Ivy
     ("»" (load-theme 'kaolin-aurora t) "aurora")
     ("(" (load-theme 'kaolin-mono-dark t) "mono-dark")
     (")" (load-theme 'kaolin-ocean t) "ocean")
-    ("@" (load-theme 'modus-vivendi t) "modus-vivendi")
-    ("+" (load-theme 'modus-operandi t) "modus-operandi")
+    ("@" (load-theme 'modus-vivendi t) "modus-vivendi" :color blue)
+    ("+" (load-theme 'modus-operandi t) "modus-operandi" :color blue)
     ("q" nil)
     )
 
@@ -489,16 +638,22 @@ je pense que c’est pas utile car inclus dans Ivy
 * Divers packages
 
 #+BEGIN_SRC emacs-lisp 
-"
-c’est le package qui génère des mots aléatoirement.
-"
-(use-package lorem-ipsum
-:ensure t)
+  (use-package 2048-game
+  :ensure t)
 #+END_SRC
 
-* TODO
-;comportement de undo redo (je voudrais modif l’incrément)
-;panneau danger quand alarme à enlever
-;taille de la fenêtre undo tree par défaut
-;fontsize minibuffer (ce serait bien de pouvoir la changer)
-;date et heure de la dernière sauvegarde
+* TODO config .emacs
+
+#+BEGIN_SRC emacs-lisp 
+  ;comportement de undo redo (je voudrais modif l’incrément)
+  ;panneau danger quand alarme à enlever
+  ;taille de la fenêtre undo tree par défaut
+  ;fontsize minibuffer (ce serait bien de pouvoir la changer)
+  ;date et heure de la dernière sauvegarde
+  ;faire fonctionner minimap (c’est pas super utile mais c’est rigolo)
+  ;apprendre magit et l’implémenter
+  ;importer les diffs avec les settings du boulot
+  ;racourcis 2048
+  ;fair fonctionner key chord pour treemacs
+  ;régler le problèmes avec les thèmes
+#+END_SRC

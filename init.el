@@ -17,7 +17,7 @@
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
  '(objed-cursor-color "#ea3d54")
  '(package-selected-packages
-   '(modus-theme modulus-themes minimal-themes material material-themes tango-plus modus-themes lorem-ipsum markdown-mode lsp-mode ranger neotree dashboard magit kaolin-themes undo-fu doom-themes gruvbox-theme cycle-themes ivy smooth-scrolling avy org-bullets beacon undo-tree which-key use-package key-chord hydra general evil doom-modeline counsel all-the-icons))
+   '(2048-game treemacs-evil minimap treemacs evil-mc multiple-cursors modus-theme modulus-themes minimal-themes material material-themes tango-plus modus-themes lorem-ipsum markdown-mode lsp-mode ranger neotree dashboard magit kaolin-themes undo-fu doom-themes gruvbox-theme cycle-themes ivy smooth-scrolling avy org-bullets beacon undo-tree which-key use-package key-chord hydra general evil doom-modeline counsel all-the-icons))
  '(pdf-view-midnight-colors (cons "#cbccd1" "#1c1d20"))
  '(rustic-ansi-faces
    ["#1c1d20" "#ea3d54" "#78bd65" "#fedd38" "#4fb3d8" "#b978ab" "#4fb3d8" "#cbccd1"])
